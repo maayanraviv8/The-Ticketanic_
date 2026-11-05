@@ -1,0 +1,29 @@
+# Acceptance-test configuration.
+#
+# Loaded into the Spring Environment by AcceptanceTestConfig
+# (src/test/acceptance/config/AcceptanceTestConfig.java) and bound to typed
+# @ConfigurationProperties beans (QueueProperties, ActiveOrderProperties, ...).
+# Tests get those beans via @Autowired in AcceptanceTestBase.
+
+ticketanic:
+  persistence:
+    mode: memory
+  queue:
+    max-concurrent-users: 50
+    browsing-session-minutes: 10
+  active-order:
+    lock-duration-minutes: 10
+    max-optimistic-retries: 20
+  order:
+    sales-counter-max-retries: 5
+  security:
+    jwt:
+      secret: test-secret-not-for-prod-must-be-long-enough-for-hmac-sha-256-key
+  external:
+    payment:
+      enabled: false
+    ticket-issuance:
+      enabled: false
+  bootstrap:
+    initial-state-file: ""
+    fail-fast-on-replay-error: true

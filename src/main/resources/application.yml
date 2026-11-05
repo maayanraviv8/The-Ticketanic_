@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: ${TICKETANIC_PROFILE:cloud}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+ticketanic:
+  queue:
+    max-concurrent-users: 50
+    browsing-session-minutes: 10
+  active-order:
+    lock-duration-minutes: 10
+    max-optimistic-retries: 20
+  order:
+    sales-counter-max-retries: 5
+  security:
+    jwt:
+      secret: ${TICKETANIC_JWT_SECRET:}
+      expiry-minutes: 1440
+  external:
+    base-url: https://damp-lynna-wsep-1984852e.koyeb.app/
+    connect-timeout-ms: 3000
+    read-timeout-ms: 5000
+    retry:
+      max-attempts: 3
+      backoff-ms: 500
+    circuit-breaker:
+      failure-rate-threshold: 50
+      wait-duration-seconds: 30
+      sliding-window-size: 10
+      minimum-number-of-calls: 5
+    payment:
+      enabled: true
+    ticket-issuance:
+      enabled: true
+  bootstrap:
+    initial-state-file: ${TICKETANIC_INITIAL_STATE:}
+    fail-fast-on-replay-error: true

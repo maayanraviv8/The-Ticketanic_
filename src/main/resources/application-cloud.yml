@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 10000
+      maximum-pool-size: 10
+      keepalive-time: 30000
+      initialization-fail-timeout: -1
+      connection-test-query: SELECT 1
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+ticketanic:
+  security:
+    jwt:
+      secret: ${JWT_SECRET}

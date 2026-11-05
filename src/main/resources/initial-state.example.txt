@@ -1,0 +1,26 @@
+# The-Ticketanic — Initial-State File (example)
+#
+# This file is OPTIONAL. It is loaded at startup only when the property
+#   ticketanic.bootstrap.initial-state-file
+# points to a file path. When loaded, each line is replayed as a use-case
+# call against the application layer.
+#
+# Format rules:
+#   - Lines starting with '#' are comments and are ignored.
+#   - Blank lines are ignored.
+#   - Each non-empty line has the shape:  <use-case-name>(<arg>, <arg>, ...)
+#   - Arguments are passed positionally and trimmed.
+#   - The token @lastToken is substituted with the token returned by the
+#     most recent successful login() call.
+#
+# Failure semantics (per V3 brief):
+#   - If any step fails, the loader aborts startup with an error pointing
+#     to the failing line, unless
+#       ticketanic.bootstrap.fail-fast-on-replay-error: false
+#     is set (intended only for local debugging).
+
+guest-registration(moshe, moshe-pw, moshe@example.com)
+guest-registration(rina,  rina-pw,  rina@example.com)
+login(rina, rina-pw)
+open-production-company(@lastToken, AcmeCo, "Acme Productions Ltd")
+appoint-manager(@lastToken, AcmeCo, moshe)
